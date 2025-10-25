@@ -1,0 +1,14 @@
+-- @ScriptType: ModuleScript
+local PluginSupportService = require(script.Parent.PluginSupportService)
+return function()
+	describe(":LoadPluginContent()", function()
+		it("should load the plugin content", function()
+			PluginSupportService:LoadPluginContent()
+		end)
+	end)
+	describe(":SavePluginContent()", function()
+		it("should save the plugin content", function()
+			PluginSupportService:SavePluginContent()
+		end)
+	end)
+end
