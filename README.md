@@ -6,9 +6,17 @@ A barebones starter project for using Upside Engine to do 2D game development in
 
 ### End-to-end Roblox Studio workflow (Git as the source of truth)
 
-1. **Install Roblox Studio and Rojo**
+1. **Install Roblox Studio and Aftman (tool manager)**
    - Install [Roblox Studio](https://create.roblox.com/). Sign in so your place can save to the cloud.
-   - Install the **Rojo** CLI from the latest release for your platform: https://github.com/rojo-rbx/rojo/releases. Add it to your `PATH` so `rojo --version` works in a terminal.
+   - Install [Aftman](https://github.com/LPGhatguy/aftman#installation) (toolchain manager for Roblox CLIs). On macOS/Linux:
+     ```bash
+     curl -fsSL https://raw.githubusercontent.com/LPGhatguy/aftman/main/install.sh | bash
+     ```
+     On Windows (PowerShell):
+     ```powershell
+     iwr https://raw.githubusercontent.com/LPGhatguy/aftman/main/install.ps1 -useb | iex
+     ```
+   - Verify that `aftman` is on your `PATH` by running `aftman --version` in a new terminal.
 
 2. **Install the Rojo plugin in Studio**
    - In Roblox Studio, open **Plugins → Manage Plugins → Toolbox**, search for **Rojo**, and install the official plugin by Roblox (the same authors as the CLI).
@@ -20,29 +28,40 @@ A barebones starter project for using Upside Engine to do 2D game development in
    cd roblox-upside-engine-starter
    ```
 
-4. **Start a Rojo sync server from the repo**
+4. **Install CLI dependencies with Aftman (Rojo)**
+   - This repo is configured with an `aftman.toml` that pins Rojo.
+   - Install the tools locally:
+     ```bash
+     aftman install
+     ```
+   - Use `aftman` to run Rojo anywhere in the repo:
+     ```bash
+     aftman run rojo --version
+     ```
+
+5. **Start a Rojo sync server from the repo**
    - This repository includes `default.project.json` mapping the repo folders to their Roblox services.
    - Run Rojo in watch/sync mode:
      ```bash
-     rojo serve
+     aftman run rojo serve
      ```
    - Keep this terminal running. It exposes the project on port **34872** (the plugin default).
 
-5. **Create/open a place in Roblox Studio and attach Rojo**
+6. **Create/open a place in Roblox Studio and attach Rojo**
    - Open a new Baseplate (or your target experience). Save it to Roblox or to a local `.rbxl` file—either works because Rojo writes into the open session.
    - In Studio, open **Plugins → Rojo** and click **Connect** (it should auto-detect `localhost:34872`).
    - After connecting, Rojo will sync the repo contents into the live Studio session, creating/updating `ReplicatedStorage`, `StarterPlayer`, and `ServerScriptService` from the repository files.
 
-6. **Edit locally, use Studio for playtesting**
+7. **Edit locally, use Studio for playtesting**
    - Make code changes in your local editor (VS Code, etc.). Rojo will live-sync them into the running Studio session for play testing.
    - When you are satisfied, commit your changes to Git; the repository remains the source of truth.
    - If you temporarily tweak code in Studio, click **Pull** in the Rojo plugin to re-apply the repo version so Studio stays in sync with Git.
 
-7. **Publishing/sharing the experience**
+8. **Publishing/sharing the experience**
    - To push your latest repo state into a fresh Studio session (or another machine), just repeat steps 4–5. The Rojo sync will overwrite the Studio copy with the Git-controlled files.
    - To upload a distributable model of the game, run:
      ```bash
-     rojo build --output build/UpsideEngineStarter.rbxm
+     aftman run rojo build --output build/UpsideEngineStarter.rbxm
      ```
      Then insert the generated `.rbxm` into a place via **Asset Manager → Bulk Import** or **View → Toolbox → My Models**.
 
