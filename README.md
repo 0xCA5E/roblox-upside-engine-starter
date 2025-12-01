@@ -8,7 +8,10 @@ A barebones starter project for using Upside Engine to do 2D game development in
 
 1. **Install Roblox Studio and tooling**
    - Install [Roblox Studio](https://create.roblox.com/). Sign in so your place can save to the cloud.
-   - Install [mise](https://mise.jdx.dev/) (the successor to Aftman) for your platform.
+   - Install [mise](https://mise.jdx.dev/) (the successor to Aftman) for your platform. Quick options from the [official installation guide](https://mise.jdx.dev/installing-mise.html):
+     - macOS: `brew install jdx/mise/mise`
+     - Linux/macOS (install script): `curl https://mise.jdx.dev/install.sh | sh` (then ensure `~/.local/bin` is on your PATH)
+     - Windows: `winget install jdx.mise`
    - From this repository, trust the project config and install the pinned tool versions:
      ```bash
      mise trust
