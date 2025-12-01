@@ -27,6 +27,9 @@ currentCamera.CameraMode = Enum.CameraMode.Classic
 currentCamera.CFrame = CFrame.new()
 
 local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine"))
+local MainScene = require(ReplicatedStorage:WaitForChild("Shared")
+        :WaitForChild("Scenes")
+        :WaitForChild("MainScene"))
 
 -- Initialize Upside Engine runtime systems.
 require(UpsideEngine.Runtime.Runner)
@@ -43,7 +46,5 @@ screen.IgnoreGuiInset = true
 screen.ResetOnSpawn = false
 screen.Parent = playerGui
 
-local scene = UpsideEngine.new("Scene")
-scene:SetName("DefaultScene")
-scene.Instance.Parent = screen
-scene:Enable()
+local sceneInfo = MainScene.Load(screen)
+local scene = sceneInfo.Scene
