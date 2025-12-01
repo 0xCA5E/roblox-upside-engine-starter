@@ -30,6 +30,7 @@ local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine"))
 local MainScene = require(ReplicatedStorage:WaitForChild("Shared")
         :WaitForChild("Scenes")
         :WaitForChild("MainScene"))
+local DebugOverlay = require(script.Parent:WaitForChild("DebugOverlay"))
 
 -- Initialize Upside Engine runtime systems.
 require(UpsideEngine.Runtime.Runner)
@@ -48,3 +49,6 @@ screen.Parent = playerGui
 
 local sceneInfo = MainScene.Load(screen)
 local scene = sceneInfo.Scene
+
+local overlay = DebugOverlay.new(screen)
+overlay:SetPlayerSprite(sceneInfo.PlayerSprite)
