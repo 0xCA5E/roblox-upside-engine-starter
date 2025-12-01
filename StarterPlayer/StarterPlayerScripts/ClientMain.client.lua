@@ -3,33 +3,68 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
-local currentCamera = workspace.CurrentCamera
+local currentCamera = Workspace.CurrentCamera
+
+-- Ensure the player character is not automatically spawned when entering the 2D experience.
+Players.CharacterAutoLoads = false
 
 -- Upside Engine renders in 2D via ScreenGuis, so the 3D character isn't needed.
 local function removeCharacter(character)
-        if character then
-                character:Destroy()
-        end
+  if character then
+    character:Destroy()
+  end
 end
 
 if player.Character then
-        removeCharacter(player.Character)
+  removeCharacter(player.Character)
 end
 
 player.CharacterAdded:Connect(removeCharacter)
 
--- Lock the Roblox camera to a 2D-friendly configuration.
-currentCamera.CameraType = Enum.CameraType.Scriptable
-currentCamera.CameraMode = Enum.CameraMode.Classic
-currentCamera.CFrame = CFrame.new()
+-- Lock the Roblox camera to a 2D-friendly configuration and guard against overrides.
+local function lockCamera(camera)
+  local desiredType = Enum.CameraType.Scriptable
+  local desiredMode = Enum.CameraMode.Classic
+
+  local function apply()
+    if camera.CameraType ~= desiredType then
+      camera.CameraType = desiredType
+    end
+
+    if camera.CameraMode ~= desiredMode then
+      camera.CameraMode = desiredMode
+    end
+
+    if camera.CFrame ~= CFrame.new() then
+      camera.CFrame = CFrame.new()
+    end
+  end
+
+  apply()
+
+  camera:GetPropertyChangedSignal("CameraType"):Connect(function()
+    if camera.CameraType ~= desiredType then
+      camera.CameraType = desiredType
+    end
+  end)
+
+  camera:GetPropertyChangedSignal("CameraMode"):Connect(function()
+    if camera.CameraMode ~= desiredMode then
+      camera.CameraMode = desiredMode
+    end
+  end)
+end
+
+lockCamera(currentCamera)
 
 local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine"))
 local MainScene = require(ReplicatedStorage:WaitForChild("Shared")
-        :WaitForChild("Scenes")
-        :WaitForChild("MainScene"))
+  :WaitForChild("Scenes")
+  :WaitForChild("MainScene"))
 local DebugOverlay = require(script.Parent:WaitForChild("DebugOverlay"))
 
 -- Initialize Upside Engine runtime systems.
