@@ -4,6 +4,9 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine"))
+local PlayerSprite = require(ReplicatedStorage:WaitForChild("Shared")
+        :WaitForChild("Entities")
+        :WaitForChild("PlayerSprite"))
 
 local MainScene = {}
 MainScene.__index = MainScene
@@ -37,12 +40,15 @@ function MainScene.Load(parent)
         local gameplayLayer = createGameplayLayer(scene)
         local camera = configureCamera(scene)
 
+        local playerSprite = PlayerSprite.spawn(scene, gameplayLayer)
+
         scene:Enable()
 
         return {
                 Scene = scene,
                 GameplayLayer = gameplayLayer,
                 Camera = camera,
+                PlayerSprite = playerSprite,
         }
 end
 
