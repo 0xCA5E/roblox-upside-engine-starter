@@ -1,0 +1,2 @@
+-- @ScriptType: Script
+-- Placeholder for server-specific logic. Future server systems can be added here.
