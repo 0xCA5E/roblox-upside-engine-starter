@@ -1,0 +1,16 @@
+{
+  "name": "UpsideEngineStarter",
+  "servePort": 34872,
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$path": "ReplicatedStorage"
+    },
+    "ServerScriptService": {
+      "$path": "ServerScriptService"
+    },
+    "StarterPlayer": {
+      "$path": "StarterPlayer"
+    }
+  }
+}
