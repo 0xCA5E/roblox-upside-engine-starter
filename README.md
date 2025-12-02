@@ -9,7 +9,7 @@ A barebones starter project for using Upside Engine to do 2D game development in
 1. **Install Roblox Studio and tooling**
    - Install [Roblox Studio](https://create.roblox.com/). Sign in so your place can save to the cloud.
    - Install [mise](https://mise.jdx.dev/) (the successor to Aftman) for your platform. Quick options from the [official installation guide](https://mise.jdx.dev/installing-mise.html):
-     - macOS: `brew install jdx/mise/mise`
+     - macOS: `brew install mise`
      - Linux/macOS (install script): `curl https://mise.jdx.dev/install.sh | sh` (then ensure `~/.local/bin` is on your PATH)
      - Windows: `winget install jdx.mise`
    - From this repository, trust the project config and install the pinned tool versions:
@@ -20,9 +20,10 @@ A barebones starter project for using Upside Engine to do 2D game development in
      This installs the Rust toolchain plus the **Rojo** CLI defined in `.mise.toml` and places `rojo` on your PATH for the repo.
 
 2. **Install the Rojo plugin in Studio**
-   - In Roblox Studio, open **Plugins → Manage Plugins → Toolbox**, search for **Rojo**, and install the official plugin by Roblox (the same authors as the CLI).
-   - Restart Studio if prompted.
-
+   - In Roblox Studio, open **Plugins → Manage Plugins → Toolbox**, search for **Rojo**, and install the official plugin by Roblox     ```bash
+   rojo plugin install
+   ```
+   
 3. **Clone this repository**
    ```bash
    git clone https://github.com/your-org/roblox-upside-engine-starter.git
