@@ -35,8 +35,8 @@ local function lockCamera(camera)
       camera.CameraType = desiredType
     end
 
-    if camera.CameraMode ~= desiredMode then
-      camera.CameraMode = desiredMode
+    if player.CameraMode ~= desiredMode then
+      player.CameraMode = desiredMode
     end
 
     if camera.CFrame ~= CFrame.new() then
@@ -52,9 +52,9 @@ local function lockCamera(camera)
     end
   end)
 
-  camera:GetPropertyChangedSignal("CameraMode"):Connect(function()
-    if camera.CameraMode ~= desiredMode then
-      camera.CameraMode = desiredMode
+  player:GetPropertyChangedSignal("CameraMode"):Connect(function()
+    if player.CameraMode ~= desiredMode then
+      player.CameraMode = desiredMode
     end
   end)
 end
