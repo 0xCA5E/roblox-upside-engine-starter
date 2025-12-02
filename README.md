@@ -58,21 +58,22 @@ A barebones starter project for using Upside Engine to do 2D game development in
 
 > Tip: Keep Studio’s **Team Create** enabled if you collaborate, but rely on Git + Rojo to move code between machines. Team Create saves the place to the cloud, while Rojo keeps the code synchronized from the repository.
 
-1. **Install the Upside Engine package**
-   - In Roblox Studio, open the Toolbox and search for "Upside Engine".
-   - Insert the package into your experience; it should appear under `ReplicatedStorage/UpsideEngine` by default.
+1. **Use the bundled Upside Engine copy**
+   - The repository already vendors Upside Engine under `ReplicatedStorage/UpsideEngine`, so Rojo will sync it into Studio automatically.
+   - If you want to upgrade to a newer engine release, replace the `ReplicatedStorage/UpsideEngine` folder with the latest package from the Toolbox and commit the updated files.
 
-2. **Locate the entry point**
-   - The client bootstrap script lives at `StarterPlayer/StarterPlayerScripts/ClientStarterScript.lua` and requires your top-level scene module to start the game.
-   - Shared game code should be implemented as `ModuleScripts` placed in `ReplicatedStorage` so both client and server can require them.
+2. **Know the entry point**
+   - The LocalScript `StarterPlayer/StarterPlayerScripts/ClientMain.client.lua` boots Upside Engine, locks the Roblox camera for 2D, and loads the starter scene.
+   - The default scene is `ReplicatedStorage/Shared/Scenes/MainScene.lua`, which wires up the sample player sprite and enables the engine runtime services required by the starter template.
 
-3. **Add sprites and scenes**
-   - Create new scene modules under `ReplicatedStorage/Scenes` following the existing module patterns.
-   - Add sprite definitions or assets under `ReplicatedStorage/Assets`. Reference Roblox assets using their asset IDs when loading images or sounds.
+3. **Add scenes, assets, and shared code**
+   - Create new scene modules under `ReplicatedStorage/Shared/Scenes` and require them from `ClientMain.client.lua` (or swap them into `MainScene.lua`).
+   - Shared modules live under `ReplicatedStorage/Shared` so both server and client scripts can require them.
+   - Sprite metadata modules belong in `ReplicatedStorage/Shared/Assets/Sprites` (see `SampleSprite.lua` for the expected shape). Reference Roblox asset IDs in the metadata when loading images or sounds.
 
-4. **Run the game**
-   - Press **Play** in Roblox Studio; the client bootstrap in `StarterPlayerScripts` will require your scene module and start the Upside Engine loop.
-   - For multiplayer testing, use **Start** to launch multiple clients; shared code in `ModuleScripts` ensures consistent behavior across clients.
+4. **Run the sample**
+   - With Rojo connected, press **Play** in Roblox Studio. `ClientMain.client.lua` will create a ScreenGui, initialize Upside Engine runtime systems, and call into `MainScene.Load` to build the scene.
+   - Use **Start** in Studio to spin up multiple clients for multiplayer testing—the shared modules under `ReplicatedStorage/Shared` keep behavior consistent across clients.
 
 ## Roblox conventions
 
@@ -82,8 +83,8 @@ A barebones starter project for using Upside Engine to do 2D game development in
 
 ## Project structure
 
-- `ReplicatedStorage/UpsideEngine`: Upside Engine package inserted from Toolbox.
-- `ReplicatedStorage/Assets`: Example assets (add your own with Roblox asset IDs).
-- `ReplicatedStorage/Scenes`: Scene modules that define your gameplay logic.
-- `StarterPlayer/StarterPlayerScripts/ClientStarterScript.lua`: Client bootstrap that wires Upside Engine to your scene.
+- `ReplicatedStorage/UpsideEngine`: Upside Engine package bundled with the starter.
+- `ReplicatedStorage/Shared/Assets`: Example assets (add your own with Roblox asset IDs).
+- `ReplicatedStorage/Shared/Scenes`: Scene modules that define your gameplay logic.
+- `StarterPlayer/StarterPlayerScripts/ClientMain.client.lua`: Client bootstrap that wires Upside Engine to your scene.
 - `ServerScriptService`: Server-side scripts (empty by default, ready for customization).
