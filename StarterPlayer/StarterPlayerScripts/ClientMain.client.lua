@@ -61,7 +61,8 @@ end
 
 lockCamera(currentCamera)
 
-local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine"))
+local UpsideEngine = require(ReplicatedStorage:WaitForChild("UpsideEngine")
+  :WaitForChild("UpsideEngine"))
 local MainScene = require(ReplicatedStorage:WaitForChild("Shared")
   :WaitForChild("Scenes")
   :WaitForChild("MainScene"))
