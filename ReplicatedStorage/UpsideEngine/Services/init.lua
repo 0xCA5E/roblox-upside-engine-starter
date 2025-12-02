@@ -1,10 +1,11 @@
 -- @ScriptType: ModuleScript
+
 local module = {}
 
 for _, Service in script:GetChildren() do
-	if not Service.Name:match(".spec") then
-		module[Service.Name] = require(Service)
-	end
+  if not Service.Name:match(".spec") then
+    module[Service.Name] = require(Service)
+  end
 end
 
 return module
